@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /staging/
+
+Sitemap: https://growthgrids.com/sitemap.xml

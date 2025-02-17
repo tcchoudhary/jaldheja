@@ -1,0 +1,13 @@
+const menu = {
+   { title: "Home",
+    url: "/",
+    dec: "nav-links"},
+    {
+        title: "About",
+        url: "/about",
+        dec: "nav-links"
+    },
+
+}
+
+module.exports = menu
