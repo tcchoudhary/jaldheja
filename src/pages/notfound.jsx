@@ -2,8 +2,6 @@
 import React, { useEffect } from "react";
 import '../assets/css/error.css'
 import { useNavigate } from "react-router-dom";
-import GgLogo from '../assets/images/logo gg.png';
-// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 function Error404() {
@@ -11,7 +9,8 @@ function Error404() {
   return (
     <>
       <div className='error_mainCont'>
-        <div className="loginLogo"><img src={GgLogo} alt="" onClick={() =>navigate('/')} width={100} /></div>
+        <div className="loginLogo">
+          <h2 onClick={() =>navigate('/')} width={100} >Jaladhija</h2></div>
         <h1 className='code'>404</h1>
         <h2 className='desc'>oops... There's something wrong.</h2>
         <div className="d-flex arrow_error">

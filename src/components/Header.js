@@ -132,7 +132,7 @@ function Header() {
                   className="brandLogo"
                   onClick={() => setPageId(2)}
                 >
-                  <h1 className="hideScroll showScroll logo">Jaldheja</h1>
+                  <h1 className="hideScroll showScroll logo">Jaladhija</h1>
                   {/* <img
                     src={productMenuActive ? logoDark : logoLight}
                     className="hideScroll"
@@ -170,15 +170,17 @@ function Header() {
                     />
                   </svg>
                 </div>
+                
                 <Link
-                  to={"/"}
-                  id={isActive("/about")}
+                  to={"/product"}
+                  id={isActive("/product")}
                   className="link"
                   style={productMenuActive ? { color: "#545454" } : null}
                   onClick={() => setPageId(3)}
                 >
                  Products
                 </Link>
+
                 <Link
                   to={"/about-us"}
                   id={isActive("/about")}
@@ -187,6 +189,15 @@ function Header() {
                   onClick={() => setPageId(3)}
                 >
                   About Company
+                </Link>
+                <Link
+                  to={"/careers"}
+                  id={isActive("/careers")}
+                  className="link"
+                  style={productMenuActive ? { color: "#545454" } : null}
+                  onClick={() => setPageId(4)}
+                >
+                  Careers
                 </Link>
                 {/* <Link
                   to={"/services"}
@@ -197,7 +208,6 @@ function Header() {
                 >
                   Services
                 </Link> */}
-               
                 <Link
                   to={"/contact-us"}
                   id={isActive("/contact-us")}

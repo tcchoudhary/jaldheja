@@ -12,7 +12,7 @@ app.get('*', async (req, res, next) => {
     const htmlData = fs.readFileSync(indexPath, 'utf8');
     const modifiedHtmlData = htmlData.replace(
       /<link rel="canonical" href="https:\/\/growthgrids\.com\/.*">/, 
-      `<link rel="canonical" href="https://growthgrids.com${req.url}">`
+      `<link rel="canonical" href="https://Jaladhija.com${req.url}">`
     );
     return res.send(modifiedHtmlData);
   } catch (error) {

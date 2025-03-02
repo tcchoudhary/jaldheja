@@ -3,20 +3,24 @@ import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link, useLocation } from "react-router-dom";
-
 import AnimatedText from "../components/AnimatedText";
 import CircleSlider from "../components/CircleSlider";
-
 // Page animation
 import pageTransition from "../components/pageTransition";
-
 // img
 import heroVideo from "../assets/images/heroVideo2.mp4";
-import aboutHome from "../assets/images/aboutHome.png";
 import tabArrow from "../assets/images/arrow.svg";
-
+import modularIcon from '../assets/images/icons/wifi.svg'
+import realTimeIcon from '../assets/images/icons/healthcare.svg'
+import rdIcon from '../assets/images/icons/home-two.svg'
+import ecoFriendlyIcon from '../assets/images/icons/leaf.svg'
+import autoFlushIcon from '../assets/images/icons/recycling.svg'
+import easyInstallIcon from '../assets/images/icons/thumbs-up.svg'
+import customDesignIcon from '../assets/images/icons/toilet.svg'
+import iotIcon from '../assets/images/icons/wheelchair.svg'
+import data from '../assets/images/icons/data.svg'
 // service img
 import marketingServices from "../assets/images/services/digital-marketing-services.jpg";
 import mobileApp from "../assets/images/services/mobileApp.jpg";
@@ -27,56 +31,88 @@ import webDevelopment from "../assets/images/services/webDevelopment.jpg";
 import softwareDevelopment from "../assets/images/services/softwareDevelopment.jpg";
 import testingImg from "../assets/images/services/testingImg.jpg";
 import developmentConsulting from "../assets/images/services/developmentConsulting.jpg";
-
-import image1 from "../assets/images/slide-icon1.png";
-import image2 from "../assets/images/slide-icon2.png";
-import image3 from "../assets/images/slide-icon3.png";
-import image4 from "../assets/images/slide-icon4.png";
-
-import tenderGrid from "../assets/images/products/tender-grid.png";
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 
 // ============ Service Tab
 const serviceTabs = [
   {
     title: "Smart Public Toilets",
-    img: image1, // Update with appropriate image for Smart Public Toilets
+    // img: image1, // Update with appropriate image for Smart Public Toilets
     discription:
-      "Jaldheja designs and installs innovative, eco-friendly, and automated public toilets that provide a hygienic and convenient experience for users. Our smart solutions are tailored to meet the needs of urban spaces and public areas.",
+      "Jaladhija designs and installs innovative, eco-friendly, and automated public toilets that provide a hygienic and convenient experience for users. Our smart solutions are tailored to meet the needs of urban spaces and public areas.",
   },
   {
     title: "Eco-Friendly Sanitation Solutions",
-    img: image2, // Update with appropriate image for Eco-Friendly Sanitation
+    // img: image2, // Update with appropriate image for Eco-Friendly Sanitation
     discription:
-      "Our commitment to sustainability drives us to offer eco-friendly sanitation solutions that reduce water usage and ensure efficient waste management. Jaldheja’s solutions contribute to a cleaner environment.",
+      "Our commitment to sustainability drives us to offer eco-friendly sanitation solutions that reduce water usage and ensure efficient waste management. Jaladhija’s solutions contribute to a cleaner environment.",
   },
   {
     title: "Modular Toilet Units for Events",
-    img: image3, // Update with appropriate image for Modular Units
+    // img: image3, // Update with appropriate image for Modular Units
     discription:
-      "Jaldheja offers modular and portable toilet units that are ideal for large events, festivals, and public gatherings. These toilets provide a hygienic and comfortable solution for high-capacity venues.",
+      "Jaladhija offers modular and portable toilet units that are ideal for large events, festivals, and public gatherings. These toilets provide a hygienic and comfortable solution for high-capacity venues.",
   },
   {
     title: "Smart Monitoring & Maintenance",
-    img: image4, // Update with appropriate image for Monitoring & Maintenance
+    // img: image4, // Update with appropriate image for Monitoring & Maintenance
     discription:
       "Our smart toilets come with real-time monitoring systems that track usage, maintenance needs, and cleaning schedules, ensuring that all units function optimally at all times.",
   },
   {
     title: "Sanitation for Educational Institutions",
-    img: image4, // Update with appropriate image for Educational Institutions
+    // img: image4, // Update with appropriate image for Educational Institutions
     discription:
       "We offer smart sanitation solutions tailored to educational institutions. Our systems ensure hygienic and low-maintenance toilet facilities for schools and universities, promoting better health for students and staff.",
   },
   {
     title: "Public Health & Safety",
-    img: image3, // Update with appropriate image for Public Health & Safety
+    // img: image3, // Update with appropriate image for Public Health & Safety
     discription:
       "Our sanitation solutions are designed to promote public health and safety by ensuring clean and safe toilets in public spaces. We work closely with municipalities and government bodies to support urban health initiatives.",
   },
 ];
 
+  const features = [
+    {
+      icon: easyInstallIcon,
+      title: "Easy to Install",
+    },
+    {
+      icon: customDesignIcon,
+      title: "Custom Designing can be done",
+    },
+    {
+      icon: ecoFriendlyIcon,
+      title: "Eco-friendly designs",
+    },
+    {
+      icon: autoFlushIcon,
+      title: "Auto-flush and Floor Clean Technology",
+    },
+    {
+      icon: iotIcon,
+      title: "IoT Technology",
+    },
+    {
+      icon: rdIcon,
+      title: "R&D",
+    },
+    {
+      icon: data,
+      title: "Real-Time Data",
+    },
+    {
+      icon: modularIcon,
+      title: "Modular Design",
+    },
+  ];
+
 const Home = () => {
-  const images = [image1, image2, image3, image4, image2];
+
 
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(0);
@@ -258,6 +294,7 @@ const Home = () => {
 
   return (
     <>
+    
       <section className="hero">
         <div className="video_wrapper">
           <video className="hero-video" muted autoPlay={"autoplay"} loop>
@@ -265,426 +302,35 @@ const Home = () => {
           </video>
         </div>
         <div className="gg-container">
-          {/* <AnimatedText> */}
+        
           <div className="hero_content">
             <h1 className="gg-title">
-              {" "}
-              "Transforming Public
-              <br /> Spaces with Smart,
-              <br /> Hygienic Toilets"
+              
+              "Jaldheja
+              <br /> Smart Sanitation,
+              <br /> Solutions Management"
             </h1>
 
             <Link to={"/contact-us"} className="gg-mainButton">
               Access Our Expertise Now!
             </Link>
           </div>
-          {/* </AnimatedText> */}
+       
         </div>
-        {/* ./gg-container */}
+        
       </section>
 
-      <section className="aboutNav_wrapper">
-        <AnimatedText>
-          <h2 className="gg-title">
-            "Jaldheja: Smart Sanitation Solutions Management"
-          </h2>
-        </AnimatedText>
-        <div className="flex__box">
-          <div className="box__item">
-            <div className="box__content">
-              <div className="gg-title">Our Vision</div>
-              <div className="box__info">
-                <p>
-                  "To revolutionize public sanitation by providing innovative,
-                  eco-friendly, and smart toilet solutions that enhance hygiene
-                  and convenience for all." Our vision is to improve public
-                  sanitation in every city and community. By integrating smart
-                  and sustainable technologies, we aim to create toilets that
-                  not only enhance cleanliness but also provide a comfortable
-                  and modern experience for all users.
-                </p>
-                <Link to={"/about-us"} className="buttonLink">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="45"
-                    height="45"
-                    viewBox="0 0 45 45"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_265_46)">
-                      <path
-                        d="M45 22.5C45 10.0736 34.9264 0 22.5 0C10.0736 0 0 10.0736 0 22.5C0 34.9264 10.0736 45 22.5 45C34.9264 45 45 34.9264 45 22.5Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M12.876 21.408C12.3435 21.408 11.9117 21.8397 11.9117 22.3722C11.9117 22.9048 12.3435 23.3365 12.876 23.3365V21.408ZM12.876 23.3365H32.877V21.408H12.876V23.3365Z"
-                        fill="#8B8B8B"
-                      />
-                      <path
-                        d="M26.1838 15.4286L33.1267 22.3714L26.1838 29.3143"
-                        stroke="#8B8B8B"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                    <rect
-                      x="0.5"
-                      y="0.5"
-                      width="44"
-                      height="44"
-                      rx="22"
-                      stroke="#8B8B8B"
-                    />
-                    <defs>
-                      <clipPath id="clip0_265_46">
-                        <rect width="45" height="45" rx="22.5" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </Link>
-              </div>
-            </div>
-            {/* ./box__content */}
-            <div className="box-card__icon">
-              <svg
-                width="184"
-                height="104"
-                viewBox="0 0 184 104"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clip-path="url(#clip0_292_123)">
-                  <path
-                    d="M92 103.5C120.443 103.5 143.5 80.4427 143.5 52C143.5 23.5573 120.443 0.5 92 0.5C63.5573 0.5 40.5 23.5573 40.5 52C40.5 80.4427 63.5573 103.5 92 103.5Z"
-                    stroke="#6C2BD9"
-                    stroke-dasharray="161.79 161.89"
-                  />
-                  <path
-                    d="M92 103.5C120.443 103.5 143.5 80.4427 143.5 52C143.5 23.5573 120.443 0.5 92 0.5C63.5573 0.5 40.5 23.5573 40.5 52C40.5 80.4427 63.5573 103.5 92 103.5Z"
-                    stroke="#6C2BD9"
-                    stroke-dasharray="161.79 161.89"
-                  />
-                  <path
-                    d="M132 103.5C160.443 103.5 183.5 80.4427 183.5 52C183.5 23.5573 160.443 0.5 132 0.5C103.557 0.5 80.5 23.5573 80.5 52C80.5 80.4427 103.557 103.5 132 103.5Z"
-                    stroke="white"
-                    stroke-dasharray="323.58 0.2"
-                  />
-                  <path
-                    d="M52 103.5C80.4427 103.5 103.5 80.4427 103.5 52C103.5 23.5573 80.4427 0.5 52 0.5C23.5573 0.5 0.5 23.5573 0.5 52C0.5 80.4427 23.5573 103.5 52 103.5Z"
-                    stroke="white"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_292_123">
-                    <rect width="184" height="104" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            {/* ./box-card__icon */}
-          </div>
-          <div className="box__item">
-            <div className="box__content">
-              <div className="gg-title">Why Us</div>
-              <div className="box__info">
-                <p>
-                  "Leading the way in smart public toilets with cutting-edge
-                  technology, reliability, and unmatched customer satisfaction."
-                  Our toilets incorporate the latest smart features, including
-                  automatic flushing, self-cleaning mechanisms, and real-time
-                  maintenance tracking. Our solutions are long-lasting,
-                  energy-efficient, and environmentally friendly. We are
-                  committed to providing the best-in-class public sanitation
-                  solutions that work seamlessly in any location.
-                </p>
-                <Link to={"/about-us"} className="buttonLink">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="45"
-                    height="45"
-                    viewBox="0 0 45 45"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_265_46)">
-                      <path
-                        d="M45 22.5C45 10.0736 34.9264 0 22.5 0C10.0736 0 0 10.0736 0 22.5C0 34.9264 10.0736 45 22.5 45C34.9264 45 45 34.9264 45 22.5Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M12.876 21.408C12.3435 21.408 11.9117 21.8397 11.9117 22.3722C11.9117 22.9048 12.3435 23.3365 12.876 23.3365V21.408ZM12.876 23.3365H32.877V21.408H12.876V23.3365Z"
-                        fill="#8B8B8B"
-                      />
-                      <path
-                        d="M26.1838 15.4286L33.1267 22.3714L26.1838 29.3143"
-                        stroke="#8B8B8B"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                    <rect
-                      x="0.5"
-                      y="0.5"
-                      width="44"
-                      height="44"
-                      rx="22"
-                      stroke="#8B8B8B"
-                    />
-                    <defs>
-                      <clipPath id="clip0_265_46">
-                        <rect width="45" height="45" rx="22.5" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </Link>
-              </div>
-            </div>
-            {/* ./box__content */}
-            <div className="box-card__icon">
-              <svg
-                width="184"
-                height="104"
-                viewBox="0 0 184 104"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M132 103.5C160.443 103.5 183.5 80.4427 183.5 52C183.5 23.5573 160.443 0.5 132 0.5C103.557 0.5 80.5 23.5573 80.5 52C80.5 80.4427 103.557 103.5 132 103.5Z"
-                  stroke="#6C2BD9"
-                />
-                <path
-                  d="M94 91.5C115.815 91.5 133.5 73.8152 133.5 52C133.5 30.1848 115.815 12.5 94 12.5C72.1848 12.5 54.5 30.1848 54.5 52C54.5 73.8152 72.1848 91.5 94 91.5Z"
-                  stroke="white"
-                />
-                <path
-                  d="M56 79.5C71.1878 79.5 83.5 67.1878 83.5 52C83.5 36.8122 71.1878 24.5 56 24.5C40.8122 24.5 28.5 36.8122 28.5 52C28.5 67.1878 40.8122 79.5 56 79.5Z"
-                  stroke="white"
-                />
-                <path
-                  d="M18 67.5C26.5604 67.5 33.5 60.5604 33.5 52C33.5 43.4396 26.5604 36.5 18 36.5C9.43959 36.5 2.5 43.4396 2.5 52C2.5 60.5604 9.43959 67.5 18 67.5Z"
-                  stroke="white"
-                />
-              </svg>
-            </div>
-            {/* ./box-card__icon */}
-          </div>
-          <div className="box__item">
-            <div className="box__content">
-              <div className="gg-title">Our Values</div>
-              <div className="box__info">
-                <p>
-                  "Innovation, Sustainability, and Community." Our core values
-                  are deeply rooted in innovation, sustainability, and
-                  community. We continuously adopt new solutions and
-                  technologies that protect the environment and improve public
-                  health. These values reflect in every decision and design we
-                  make, ensuring a superior experience for every user.
-                </p>
-                <Link to={"/about-us"} className="buttonLink">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="45"
-                    height="45"
-                    viewBox="0 0 45 45"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_265_46)">
-                      <path
-                        d="M45 22.5C45 10.0736 34.9264 0 22.5 0C10.0736 0 0 10.0736 0 22.5C0 34.9264 10.0736 45 22.5 45C34.9264 45 45 34.9264 45 22.5Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M12.876 21.408C12.3435 21.408 11.9117 21.8397 11.9117 22.3722C11.9117 22.9048 12.3435 23.3365 12.876 23.3365V21.408ZM12.876 23.3365H32.877V21.408H12.876V23.3365Z"
-                        fill="#8B8B8B"
-                      />
-                      <path
-                        d="M26.1838 15.4286L33.1267 22.3714L26.1838 29.3143"
-                        stroke="#8B8B8B"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </g>
-                    <rect
-                      x="0.5"
-                      y="0.5"
-                      width="44"
-                      height="44"
-                      rx="22"
-                      stroke="#8B8B8B"
-                    />
-                    <defs>
-                      <clipPath id="clip0_265_46">
-                        <rect width="45" height="45" rx="22.5" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </Link>
-              </div>
-            </div>
-            {/* ./box__content */}
-            <div className="box-card__icon">
-              <svg
-                width="184"
-                height="104"
-                viewBox="0 0 184 104"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clip-path="url(#clip0_292_128)">
-                  <path
-                    d="M183.5 52C183.5 66.3376 182.382 79.3045 180.58 88.6751C179.678 93.3645 178.61 97.1277 177.437 99.7066C176.85 100.998 176.249 101.964 175.651 102.601C175.052 103.238 174.501 103.5 174 103.5C173.499 103.5 172.948 103.238 172.349 102.601C171.751 101.964 171.15 100.998 170.563 99.7066C169.39 97.1277 168.322 93.3645 167.42 88.6751C165.618 79.3045 164.5 66.3376 164.5 52C164.5 37.6623 165.618 24.6955 167.42 15.3249C168.322 10.6355 169.39 6.87226 170.563 4.29337C171.15 3.00237 171.751 2.03558 172.349 1.39887C172.948 0.761993 173.499 0.5 174 0.5C174.501 0.5 175.052 0.761993 175.651 1.39887C176.249 2.03558 176.85 3.00237 177.437 4.29337C178.61 6.87226 179.678 10.6355 180.58 15.3249C182.382 24.6955 183.5 37.6623 183.5 52Z"
-                    stroke="white"
-                    stroke-dasharray="214.74 0.2"
-                  />
-                  <path
-                    d="M153.5 52C153.5 66.3141 151.268 79.2505 147.675 88.5901C145.879 93.2615 143.752 97.0076 141.415 99.5772C139.079 102.147 136.572 103.5 134 103.5C131.428 103.5 128.921 102.147 126.585 99.5772C124.248 97.0076 122.121 93.2615 120.325 88.5901C116.732 79.2505 114.5 66.3141 114.5 52C114.5 37.6859 116.732 24.7495 120.325 15.4099C122.121 10.7385 124.248 6.99237 126.585 4.4228C128.921 1.85338 131.428 0.5 134 0.5C136.572 0.5 139.079 1.85338 141.415 4.4228C143.752 6.99237 145.879 10.7385 147.675 15.4099C151.268 24.7495 153.5 37.6859 153.5 52Z"
-                    stroke="white"
-                    stroke-dasharray="234.4 0.2"
-                  />
-                  <path
-                    d="M52 103.5C80.4427 103.5 103.5 80.4427 103.5 52C103.5 23.5573 80.4427 0.5 52 0.5C23.5573 0.5 0.5 23.5573 0.5 52C0.5 80.4427 23.5573 103.5 52 103.5Z"
-                    stroke="#6C2BD9"
-                    stroke-dasharray="323.58 0.2"
-                  />
-                  <path
-                    d="M125.5 52C125.5 66.2807 121.881 79.1857 116.057 88.5046C110.228 97.8305 102.24 103.5 93.5 103.5C84.76 103.5 76.7717 97.8305 70.943 88.5046C65.1187 79.1857 61.5 66.2807 61.5 52C61.5 37.7193 65.1187 24.8143 70.943 15.4954C76.7717 6.16954 84.76 0.5 93.5 0.5C102.24 0.5 110.228 6.16954 116.057 15.4954C121.881 24.8143 125.5 37.7193 125.5 52Z"
-                    stroke="white"
-                    stroke-dasharray="265.91 0.2"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_292_128">
-                    <rect width="184" height="104" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            {/* ./box-card__icon */}
-          </div>
-        </div>
-        {/* ./flex__box */}
-      </section>
-
-      <section className="aboutCompany_wrapper">
-        <div className="gg-grid">
-          <div className="gg-col-sm-5 gg-col-12">
-            <div className="img_contnter">
-              <img src={aboutHome} alt="about home" />
-            </div>
-          </div>
-          <div className="gg-col-sm-7 gg-col-12">
-            <div className="ac_content">
-              <AnimatedText>
-                <div className="vw_heading">
-                  <h4 className="sub__title">About Company</h4>
-                  <h2 className="gg-title">
-                    Jaldheja: Revolutionizing Public Sanitation with Smart
-                    Solutions
-                  </h2>
-                </div>
-              </AnimatedText>
-              {/* ./vw_heading */}
-              <AnimatedText>
-                <p>
-                  At Jaldheja, we are pioneering the future of public sanitation
-                  by designing and providing innovative, eco-friendly, and smart
-                  toilet solutions. Our mission is to create cleaner, safer, and
-                  more sustainable public spaces through cutting-edge
-                  technologies that ensure comfort and hygiene for all.
-                </p>
-              </AnimatedText>
-
-              <AnimatedText>
-                <div className="gg-grid">
-                  <div className="gg-col-sm-6 gg-col-12">
-                    <div
-                      className="pointer_info"
-                      style={{
-                        borderRight: "1px solid #ffffff33",
-                        paddingRight: 40,
-                      }}
-                    >
-                      <h5>Smart Sanitation Solutions</h5>
-                      <p>
-                        We offer state-of-the-art public toilet systems equipped
-                        with features like automatic flushing, self-cleaning,
-                        and real-time monitoring for hygiene and efficiency.
-                      </p>
-                    </div>
-                    {/* ./pointer_info */}
-                  </div>
-                  <div className="gg-col-sm-6 gg-col-12">
-                    <div className="pointer_info">
-                      <h5>Sustainability and Innovation</h5>
-                      <p>
-                        Our products are designed with sustainability in mind,
-                        ensuring energy efficiency, minimal water usage, and a
-                        cleaner environment while delivering modern sanitation
-                        solutions.
-                      </p>
-                    </div>
-                    {/* ./pointer_info */}
-                  </div>
-                </div>
-              </AnimatedText>
-              {/* ./gg-grid */}
-            </div>
-            {/* ./ac_content */}
-          </div>
-        </div>
-      </section>
-
-      <section className="gstats_wrapper">
-        <div className="gg-container">
-          <AnimatedText>
-            <div className="vw_heading">
-              <h2 className="gg-title">Our Success Numbers</h2>
-              <p>
-                Success Has a Number, and It's Yours to Claim. Are You Ready to
-                Begin Yours?
-              </p>
-            </div>
-          </AnimatedText>
-          {/* ./vw_heading */}
-
-          <AnimatedText>
-            <div className="gg-grid">
-              <div className="gg-col-sm-3 gg-col-12">
-                <div className="gsw_content">
-                  <div className="gsw_Count">{count}+</div>
-                  <p>years of experience</p>
-                </div>
-                {/* ./gsw_content */}
-              </div>
-              <div className="gg-col-sm-3 gg-col-12">
-                <div className="gsw_content">
-                  <div className="gsw_Count">{count2}+</div>
-                  <p>professionals & specialist</p>
-                </div>
-                {/* ./gsw_content */}
-              </div>
-              <div className="gg-col-sm-3 gg-col-12">
-                <div className="gsw_content">
-                  <div className="gsw_Count">{count3}+</div>
-                  <p>projects Install</p>
-                </div>
-                {/* ./gsw_content */}
-              </div>
-              <div className="gg-col-sm-3 gg-col-12">
-                <div className="gsw_content" style={{ border: "none" }}>
-                  <div className="gsw_Count">{count4} %</div>
-                  <p>client satisfaction</p>
-                </div>
-                {/* ./gsw_content */}
-              </div>
-            </div>
-          </AnimatedText>
-        </div>
-        {/* ./gg-container */}
-      </section>
-
+      {/* <section className="heo">
+        <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+          <SwiperSlide>
+            <video src={heroVideo}></video>
+          </SwiperSlide>
+          <SwiperSlide>
+            <video src={heroVideo}></video>
+          </SwiperSlide>
+        </Swiper>
+      </section> */}
+      
       <section className="industries_wrapper">
         <div className="gg-container">
           <div className="gg-grid">
@@ -693,7 +339,7 @@ const Home = () => {
                 <div className="vw_heading">
                   <h5 className="sub__title">Industries We Serve</h5>
                   <h2 className="gg-title">
-                    Discover the industries where Jaldheja's smart sanitation
+                    Discover the industries where Jaladhija's smart sanitation
                     solutions make a difference.
                   </h2>
                 </div>
@@ -714,53 +360,24 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="services_wrapper">
-        <div className="gg-grid">
-          <div className="gg-col-sm-4 gg-col-12">
-            <div className="sw_tab">
-              <div className="navTab">
-                <h2 className="gg-title">Our Services</h2>
-                <ul>
-                  {serviceTabs.map((tab, index) => (
-                    <li
-                      key={index}
-                      className={activeTab === tab ? "active" : ""}
-                      onClick={() => handleTabClick(tab, index)}
-                    >
-                      <span>{tab.title}</span>
-                      <img src={tabArrow} alt="tab arrow" />
-                    </li>
-                  ))}
-                </ul>
+
+      <section className="icon_wrapper">
+      <div className="feature-container">
+        <h2 className="gg-title">Key Features and Functionalities</h2>
+       <div className="icon-grid">
+        <div className="icon-map">
+        {features.map((feature, index) => (
+            <div key={index} className="featureItem">
+              <div className="featureCircle">
+                <img src={feature.icon} alt={feature.title} />
               </div>
+              <h3>{feature.title}</h3>
             </div>
-            {/* ./vw_content */}
-          </div>
-          <div className="gg-col-sm-8 gg-col-12">
-            <div className="sw_content">
-              {serviceTabs.map((tab, index) => (
-                <div
-                  key={index}
-                  className={`tabItem ${getAnimationClass(index)}`}
-                >
-                  <div className="ti_img">
-                    {activeTab === tab && <img src={tab.img} alt={tab.title} />}
-                  </div>
-                  <div className="ti_cont">
-                    <h5>{tab.title}</h5>
-                    <p>{tab.discription}</p>
-                    <Link to={"/services"} className="gg-mainButton">
-                      Learn more
-                    </Link>
-                  </div>
-                </div>
-              ))}
-              {/* ./tabItem */}
-            </div>
-            {/* ./vw_content */}
-          </div>
+          ))}
         </div>
-      </section>
+       </div>
+      </div>
+    </section>
 
       <section className="goals_wrapper">
         <div className="gg-container">
@@ -1854,17 +1471,16 @@ const Home = () => {
           </AnimatedText>
 
           <div class="core_text ct1">Diversify Lead Sources</div>
-<div class="core_text ct2">Technological Excellence in Sanitation</div>
-<div class="core_text ct3">Scalable Smart Toilet Solutions</div>
-<div class="core_text ct4">Exceptional Hygiene & Sanitation Experiences</div>
-<div class="core_text ct5">Great User Experiences for All</div>
-<div class="core_text ct6">Inclusive Sanitation Solutions for Specially-Abled Users</div>
+          <div class="core_text ct2">Technological Excellence in Sanitation</div>
+          <div class="core_text ct3">Inclusive Sanitation Solutions for Specially-Abled Users</div>
+          <div class="core_text ct4">Exceptional Hygiene & Sanitation Experiences</div>
+          <div class="core_text ct5">Great User Experiences for All</div>
 
         </div>
         {/*  ./core */}
       </section>
 
-      <section className="ourProucts_wrapper">
+      {/* <section className="ourProucts_wrapper">
         <div className="vw_heading">
           <AnimatedText>
             <h5 className="sub__title">Our Products</h5>
@@ -1874,147 +1490,147 @@ const Home = () => {
           </AnimatedText>
         </div>
 
-      </section>
+      </section> */}
 
       <section className="clientReview_wrapper">
-  <div className="gg-container">
-    <div className="gg-grid">
-      <div className="gg-col-sm-6 gg-col-12">
-        <Slider ref={sliderRef} {...settings}>
-          <div className="crw_block">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="28"
-              viewBox="0 0 35 28"
-              fill="none"
-            >
-              <path
-                d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
-                fill="#6C2BD9"
-              />
-            </svg>
-            <p>
-              Jaldheja's smart toilet solutions have revolutionized sanitation in
-              public spaces. Their focus on technology and user-centered design
-              made our public facilities more efficient and accessible.
-            </p>
-            <div className="crw_name">Ayesha Khan, Facility Manager</div>
-            <div className="industry">Public Sanitation Sector</div>
-          </div>
+        <div className="gg-container">
+          <div className="gg-grid">
+            <div className="gg-col-sm-6 gg-col-12">
+              <Slider ref={sliderRef} {...settings}>
+                <div className="crw_block">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="35"
+                    height="28"
+                    viewBox="0 0 35 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
+                      fill="#6C2BD9"
+                    />
+                  </svg>
+                  <p>
+                    Jaladhija's smart toilet solutions have revolutionized sanitation in
+                    public spaces. Their focus on technology and user-centered design
+                    made our public facilities more efficient and accessible.
+                  </p>
+                  <div className="crw_name">Ayesha Khan, Facility Manager</div>
+                  <div className="industry">Public Sanitation Sector</div>
+                </div>
 
-          <div className="crw_block">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="28"
-              viewBox="0 0 35 28"
-              fill="none"
-            >
-              <path
-                d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
-                fill="#6C2BD9"
-              />
-            </svg>
-            <p>
-              Their team’s commitment to sustainability through smart toilets
-              has made a noticeable difference in our urban areas. We have seen
-              better hygiene standards and greater accessibility for everyone,
-              especially for those with special needs.
-            </p>
-            <div className="crw_name">Rajesh Gupta, Urban Planner</div>
-            <div className="industry">Urban Development Sector</div>
-          </div>
+                <div className="crw_block">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="35"
+                    height="28"
+                    viewBox="0 0 35 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
+                      fill="#6C2BD9"
+                    />
+                  </svg>
+                  <p>
+                    Their team’s commitment to sustainability through smart toilets
+                    has made a noticeable difference in our urban areas. We have seen
+                    better hygiene standards and greater accessibility for everyone,
+                    especially for those with special needs.
+                  </p>
+                  <div className="crw_name">Rajesh Gupta, Urban Planner</div>
+                  <div className="industry">Urban Development Sector</div>
+                </div>
 
-          <div className="crw_block">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="28"
-              viewBox="0 0 35 28"
-              fill="none"
-            >
-              <path
-                d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
-                fill="#6C2BD9"
-              />
-            </svg>
-            <p>
-              We implemented Jaldheja’s smart toilets at several public parks
-              and have been thrilled by the results. Their advanced tech has
-              made a significant difference in convenience and cleanliness.
-            </p>
-            <div className="crw_name">Liam Patterson, Park Manager</div>
-            <div className="industry">Public Parks & Recreation</div>
-          </div>
+                <div className="crw_block">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="35"
+                    height="28"
+                    viewBox="0 0 35 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
+                      fill="#6C2BD9"
+                    />
+                  </svg>
+                  <p>
+                    We implemented Jaladhija’s smart toilets at several public parks
+                    and have been thrilled by the results. Their advanced tech has
+                    made a significant difference in convenience and cleanliness.
+                  </p>
+                  <div className="crw_name">Liam Patterson, Park Manager</div>
+                  <div className="industry">Public Parks & Recreation</div>
+                </div>
 
-          <div className="crw_block">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="28"
-              viewBox="0 0 35 28"
-              fill="none"
-            >
-              <path
-                d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
-                fill="#6C2BD9"
-              />
-            </svg>
-            <p>
-              Jaldheja’s innovative solutions in public sanitation have been a
-              game-changer for our community. Their toilets are not just
-              environmentally friendly but also accessible to all citizens,
-              including those with disabilities.
-            </p>
-            <div className="crw_name">Mina Loper, Community Outreach Director</div>
-            <div className="industry">Community Services</div>
+                <div className="crw_block">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="35"
+                    height="28"
+                    viewBox="0 0 35 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M14.0236 14.0406V27.7358H0V18.4138C0 14.8845 0.628507 11.6621 1.88552 8.74657C3.14254 5.75432 5.22447 2.8388 8.13131 0L13.3165 3.91294C10.0168 7.44226 8.13131 10.8181 7.65993 14.0406H14.0236ZM35 14.0406V27.7358H20.9764V18.4138C20.9764 14.8845 21.6049 11.6621 22.862 8.74657C24.119 5.75432 26.2009 2.8388 29.1077 0L34.2929 3.91294C30.9933 7.44226 29.1077 10.8181 28.6364 14.0406H35Z"
+                      fill="#6C2BD9"
+                    />
+                  </svg>
+                  <p>
+                    Jaladhija’s innovative solutions in public sanitation have been a
+                    game-changer for our community. Their toilets are not just
+                    environmentally friendly but also accessible to all citizens,
+                    including those with disabilities.
+                  </p>
+                  <div className="crw_name">Mina Loper, Community Outreach Director</div>
+                  <div className="industry">Community Services</div>
+                </div>
+              </Slider>
+            </div>
+            <div className="gg-col-sm-6 gg-col-12">
+              <AnimatedText>
+                <div className="vw_heading">
+                  <h5 className="sub__title">Testimonials</h5>
+                  <h2 className="gg-title">
+                    Our customers <br /> love what we do
+                  </h2>
+                  <p>
+                    Curious about the impact we've had on businesses like yours?
+                    Delve into the client testimonial section at Jaladhija. It's a
+                    compelling feedback of partnerships, growth, and satisfaction,
+                    told directly by the clients who have experienced the positive
+                    changes our smart sanitation solutions have brought to their
+                    organisations.
+                  </p>
+                  {renderArrows()}
+                </div>
+              </AnimatedText>
+            </div>
           </div>
-        </Slider>
-      </div>
-      <div className="gg-col-sm-6 gg-col-12">
-        <AnimatedText>
-          <div className="vw_heading">
-            <h5 className="sub__title">Testimonials</h5>
-            <h2 className="gg-title">
-              Our customers <br /> love what we do
-            </h2>
-            <p>
-              Curious about the impact we've had on businesses like yours?
-              Delve into the client testimonial section at Jaldheja. It's a
-              compelling feedback of partnerships, growth, and satisfaction,
-              told directly by the clients who have experienced the positive
-              changes our smart sanitation solutions have brought to their
-              organisations.
-            </p>
-            {renderArrows()}
-          </div>
-        </AnimatedText>
-      </div>
-    </div>
-  </div>
-  <div className="pattern__bottom"></div>
-</section>
+        </div>
+        <div className="pattern__bottom"></div>
+      </section>
 
 
-<section className="career_wrapper">
-  <div className="gg-container">
-    <AnimatedText>
-      <div className="vw_heading">
-        <h5 className="sub__title">Career Opportunities</h5>
-        <h2 className="gg-title">Be Part of Our Innovative Journey</h2>
-        <p>
-          At Jaldheja, we're driven by a passion for transforming public sanitation through innovation. We're looking for proactive individuals who bring fresh ideas, adaptability, and a commitment to improving communities. If you're excited about making a real difference and are ready to join a forward-thinking team, we’d love to hear from you!
-        </p>
-        <Link to={"/about-us"} className="gg-mainButton">
-          Explore Now
-        </Link>
-      </div>
-      {/* ./vw_heading */}
-    </AnimatedText>
-  </div>
-  {/* ./gg-container */}
-</section>
+      <section className="career_wrapper">
+        <div className="gg-container">
+          <AnimatedText>
+            <div className="vw_heading">
+              <h5 className="sub__title">Career Opportunities</h5>
+              <h2 className="gg-title">Be Part of Our Innovative Journey</h2>
+              <p>
+                At Jaladhija, we're driven by a passion for transforming public sanitation through innovation. We're looking for proactive individuals who bring fresh ideas, adaptability, and a commitment to improving communities. If you're excited about making a real difference and are ready to join a forward-thinking team, we’d love to hear from you!
+              </p>
+              <Link to={"/about-us"} className="gg-mainButton">
+                Explore Now
+              </Link>
+            </div>
+            {/* ./vw_heading */}
+          </AnimatedText>
+        </div>
+        {/* ./gg-container */}
+      </section>
 
     </>
   );

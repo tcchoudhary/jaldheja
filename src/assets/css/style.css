@@ -249,6 +249,8 @@
   grid-row-start: 13;
 }
 
+
+
 @media (min-width: 320px) {
   .gg-col-xs-1 {
     grid-column-end: span 1;

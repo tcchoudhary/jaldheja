@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// @ts-nocheck
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -16,82 +17,67 @@ const Contact = () => {
   const [value, setValue] = useState(initialstate);
   const [errors, setErrors] = useState({});
 
-  const notifySuccess = (message) => {
-    toast.success(message);
-  };
+  const notifySuccess = (message) => toast.success(message);
+  const notifyError = (message) => toast.error(message);
 
-  const notifyError = (message) => {
-    toast.error(message);
-  };
-
-  const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    return emailRegex?.test(email);
-  };
-
-  const validatePhone = (phone) => {
-    const phoneRegex = /^[0-9]{10}$/;
-    return phoneRegex?.test(phone);
-  };
+  const validateEmail = (email) => /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email);
+  const validatePhone = (phone) => /^[0-9]{10}$/.test(phone);
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-    }
+    if (e.key === "Enter") e.preventDefault();
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    // Perform strict validation for phone number field
-    if (name === "phone" && isNaN(value)) {
-      return; // Ignore non-numeric input
-    }
+    const { name, value: inputValue } = e.target;
+    if (name === "phone" && isNaN(inputValue)) return;
+
     setValue((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: inputValue,
     }));
 
-    // Check for empty fields
-    if (value?.trim() === "") {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: `${name} field is required`,
+    if (inputValue.trim() === "") {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: `${name.replace("_", " ")} field is required`,
       }));
     } else {
-      // Clear error if field is not empty
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: "",
-      }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
-    // Perform additional field-level validation (e.g., email, phone)
-    if (name === "email" && !validateEmail(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: "Please enter a valid email address",
-      }));
-    } else if (name === "phone") {
-      if (value?.trim() !== "" && !validatePhone(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: "Please enter a valid 10-digit phone number",
-        }));
-      } else {
-        // Clear error if phone number is valid
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: "",
-        }));
-      }
+
+    if (name === "email" && inputValue && !validateEmail(inputValue)) {
+      setErrors((prev) => ({ ...prev, [name]: "Please enter a valid email address" }));
+    } else if (name === "phone" && inputValue && !validatePhone(inputValue)) {
+      setErrors((prev) => ({ ...prev, [name]: "Please enter a valid 10-digit phone number" }));
+    } else {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!value?.name && !value?.email && !value?.phone && !value?.file) {
-      notifyError("All fields are required");
+    const requiredFields = ["name", "email", "phone", "subject"];
+    const newErrors = {};
+
+    requiredFields.forEach((field) => {
+      if (!value[field].trim()) {
+        newErrors[field] = `${field.replace("_", " ")} field is required`;
+      }
+    });
+
+    if (value.email && !validateEmail(value.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    if (value.phone && !validatePhone(value.phone)) {
+      newErrors.phone = "Please enter a valid 10-digit phone number";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      notifyError("Please fill all required fields correctly");
       return;
     }
+
     try {
       const formData = new URLSearchParams();
       formData.append("name", value.name);
@@ -99,6 +85,7 @@ const Contact = () => {
       formData.append("phone", value.phone);
       formData.append("comp_name", value.comp_name);
       formData.append("subject", value.subject);
+
       const response = await GrowthgridsApiList.submitContactUsForm(formData);
       if (response.status === 1) {
         setValue(initialstate);
@@ -108,7 +95,6 @@ const Contact = () => {
         notifyError(response.message);
       }
     } catch (error) {
-      console.log(`${error.message}`);
       notifyError(`${error.message}`);
     }
   };
@@ -118,11 +104,10 @@ const Contact = () => {
       <section className="gg-page_banner contactBanner">
         <div className="gg-container">
           <div className="gab_content">
-            <h4 className="sub__title">Contact</h4>
+            <h4 className="sub__title">Contact Us</h4>
             <div className="gg-title">
               <h1 className="gg-title">
-                "Revolutionize Public Hygiene – Reach Out and Let’s Innovate
-                Smart Sanitation Together!"
+                "Let’s Innovate Smart Sanitation Together – Reach Out Today!"
               </h1>
             </div>
           </div>
@@ -135,32 +120,29 @@ const Contact = () => {
             <div className="gg-col-sm-4 gg-col-xs-12">
               <div className="contact_info gs_reveal">
                 <div className="subTitle">Call Us</div>
-                <a href="tel:+91-9784545425" className="link">
+                <a href="tel:+91-7838974389" className="link">
                   +91-7838974389
                 </a>
                 <br />
                 <br />
-                <div className="subTitle">Drop us a line</div>
+                <div className="subTitle">Email Us</div>
                 <a href="mailto:jaladhijainfragst@gmail.com" className="link">
-                  {" "}
-                  jaladhijainfragst@gmail.com{" "}
+                  jaladhijainfragst@gmail.com
                 </a>
                 <br />
                 <br />
-                <div className="subTitle">Reach us</div>
-                <a href="# " className="link">
-                  {" "}
-                  2Nd Floor, Emerald Heights, Laxmi Nagar, Sinhagad Road Pune -,
-                  Pune, Maharashtra., India
+                <div className="subTitle">Visit Us</div>
+                <a href="#" className="link">
+                  2nd Floor, Emerald Heights, Laxmi Nagar, Sinhagad Road Pune, Maharashtra, India
                 </a>
               </div>
             </div>
             <div className="gg-col-sm-8 gg-col-xs-12">
               <div className="form_wrapper gs_reveal">
-                <h1 className="gg-title">Let's discuss your Requirement</h1>
-                <form action="" onKeyDown={handleKeyDown}>
+                <h1 className="gg-title">Discuss Your Smart Sanitation Needs</h1>
+                <form onKeyDown={handleKeyDown}>
                   <div className="input_grp">
-                    <label>You should have a name and last name*</label>
+                    <label>Your Full Name*</label>
                     <input
                       type="text"
                       placeholder="Your Full Name"
@@ -169,72 +151,57 @@ const Contact = () => {
                       name="name"
                       required
                     />
-                    {errors.name && (
-                      <span className="error">{errors.name}</span>
-                    )}
+                    {errors.name && <span className="error">{errors.name}</span>}
                   </div>
                   <div className="input_grp">
-                    <label>And an e-mail*</label>
+                    <label>Your Email*</label>
                     <input
                       type="email"
-                      placeholder="Your email"
+                      placeholder="Your Email"
                       value={value.email}
                       onChange={handleChange}
                       name="email"
                       required
                     />
-                    {errors.email && (
-                      <span className="error">{errors.email}</span>
-                    )}
+                    {errors.email && <span className="error">{errors.email}</span>}
                   </div>
                   <div className="input_grp">
-                    <label>How about a phone number?*</label>
+                    <label>Your Phone Number*</label>
                     <input
                       type="text"
-                      placeholder="Your phone"
+                      placeholder="Your Phone"
                       value={value.phone}
                       onChange={handleChange}
                       name="phone"
                       required
                     />
-                    {errors.phone && (
-                      <span className="error">{errors.phone}</span>
-                    )}
+                    {errors.phone && <span className="error">{errors.phone}</span>}
                   </div>
                   <div className="input_grp">
-                    <label>Are you contacting on behalf of a company?</label>
+                    <label>Company Name (Optional)</label>
                     <input
                       type="text"
                       placeholder="Your Company"
                       value={value.comp_name}
                       onChange={handleChange}
                       name="comp_name"
-                      required
                     />
-                    {errors.comp_name && (
-                      <span className="error">{errors.comp_name}</span>
-                    )}
+                    {errors.comp_name && <span className="error">{errors.comp_name}</span>}
                   </div>
                   <div className="input_grp">
-                    <label>Now write down your message*</label>
+                    <label>Your Message*</label>
                     <textarea
                       rows="7"
-                      placeholder="Your Message"
+                      placeholder="Tell us about your sanitation project or inquiry"
                       name="subject"
                       value={value.subject}
                       onChange={handleChange}
                       required
                     ></textarea>
-                    {errors.subject && (
-                      <span className="error">{errors.subject}</span>
-                    )}
+                    {errors.subject && <span className="error">{errors.subject}</span>}
                   </div>
-                  <button
-                    type="submit"
-                    className="gg-mainButton"
-                    onClick={handleSubmit}
-                  >
-                    Submit
+                  <button type="submit" className="gg-mainButton" onClick={handleSubmit}>
+                    Submit Inquiry
                   </button>
                 </form>
               </div>

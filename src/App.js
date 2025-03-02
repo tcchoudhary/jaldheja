@@ -19,8 +19,8 @@ import About from "./pages/About.jsx";
 import Careers from "./pages/Careers.jsx";
 import Contact from "./pages/Contact.jsx";
 import Services from "./pages/Services.jsx";
-import TenderGrid from "./pages/products/TenderGrid.jsx";
 import PageNotFound from './pages/notfound.jsx'
+import product from './pages/product.jsx'
 const App = () => {
     const location = useLocation();
 
@@ -36,7 +36,9 @@ const App = () => {
                 <Routes location={location} key={location.pathname}>
                     <Route index path='/' element={pageTransition(Home)} />
                     <Route path='/about-us' element={pageTransition(About)} />
+                    <Route path='/product' element={pageTransition(product)} />
                     <Route path='/contact-us' element={pageTransition(Contact)} />
+                    <Route path='/careers' element={pageTransition(Careers)} />
                     <Route path='/services' element={pageTransition(Services)} />
                     <Route path='*' element={pageTransition(PageNotFound)} />
                 </Routes>

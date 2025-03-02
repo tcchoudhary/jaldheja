@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import logo from "../assets/images/logo.png";
-import arrowImg from "../assets/images/anchor-arrow.svg";
+import React from "react";
+import logo from "../assets/images/logo.png"; // Ensure this is the Jaladhija Smart Bio Toilets logo
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -9,38 +8,33 @@ function Footer() {
       <div className="gg-container">
         <div className="gg-grid">
           <div className="gg-col-sm-1 gg-col-4">
-            <img src={logo} className="foot-logo" alt="foot-logo" />
+          <h1 className="foot-logo">Jaladhija</h1>
           </div>
           <div className="gg-col-sm-2 gg-col-2">
             <div className="foot_det">
               <ul>
-                {/* <li><Link to={""}>Industries</Link></li> */}
                 <li>
                   <Link to={"/about-us"}>About Company</Link>
                 </li>
-                {/* <li><Link to={"/careers"}>Careers</Link></li> */}
                 <li>
-                  <Link to={"/contact-us"}>Contact us</Link>
+                  <Link to={"/contact-us"}>Contact Us</Link>
                 </li>
               </ul>
             </div>
-            {/* <!-- ./foot_det --> */}
           </div>
           <div className="gg-col-sm-2 gg-col-12">
             <div className="foot_links">
-              <div className="sybHead">Do what matters</div>
-
+              {/* <div className="sybHead">Do what matters</div> */}
               <ul>
                 <li>
-                  <Link to={"mailto: jaladhijainfragst@gmail.com "}>
-                  jaladhijainfragst@gmail.com 
+                  <Link to={"mailto:jaladhijainfragst@gmail.com"}>
+                    jaladhijainfragst@gmail.com
                   </Link>
                 </li>
                 <li>
                   <Link to={"tel:+91-7838974389"}>+91-7838974389</Link>
                 </li>
               </ul>
-
               <div className="social_link">
                 <Link to={"https://in.linkedin.com/company/"} target="_blank">
                   <svg
@@ -68,7 +62,7 @@ function Footer() {
                     </defs>
                   </svg>
                 </Link>
-                <Link to={"https://www.instagram.com//"} target="_blank">
+                <Link to={"https://www.instagram.com/"} target="_blank">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -140,17 +134,18 @@ function Footer() {
         </div>
 
         <div className="footer_bottom">
-          <div className="fb_nav">
-            <Link to={""}>Privacy Statement</Link>
-            <Link to={""}>Cookie Policy</Link>
-            <Link to={""}>Terms of Use</Link>
-          </div>
+          <p>
+            Address: 2nd Floor, Emerald Heights, Laxmi Nagar, Sinhagad Road Pune, Maharashtra.
+          </p>
+          <p>
+            Contact: 7838974389 | Email:{" "}
+            <a href="mailto:jaladhijainfragst@gmail.com">jaladhijainfragst@gmail.com</a>
+          </p>
           <div className="copyRight">
-            &copy; 2022-2024  All rights reserved.
+            © {new Date().getFullYear()} Jaladhija Smart Bio Toilets. All rights reserved.
           </div>
         </div>
       </div>
-    
     </footer>
   );
 }
